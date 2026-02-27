@@ -6,16 +6,17 @@ Finds trending products with low competition by combining Google Trends (demand)
 
 1. Browses eBay categories to discover products
 2. Extracts keywords from product titles using NLP
-3. Checks if demand is rising on Google Trends
-4. Filters to keywords trending upward (Phase 1 complete)
-5. Calculates an "opportunity score" based on demand vs competition (coming soon)
+3. Filters keywords using semantic similarity (word embeddings)
+4. Checks if demand is rising on Google Trends
+5. Calculates features: trend momentum, acceleration, competition density, price spread
+6. Calculates an "opportunity score" based on demand vs competition (coming soon)
 
 ## Setup
 
 1. Install dependencies:
 ```bash
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_md
 ```
 
 2. Create a `.env` file with your eBay API credentials:
@@ -42,16 +43,19 @@ src/
     ebay_scraper.py    # eBay API client + keyword extraction
     google_trends.py   # Google Trends data + rising filter
     discovery.py       # Discovery pipeline orchestration
+  processing/
+    features.py        # Feature engineering (momentum, competition, etc.)
 ```
 
 ## Current Status
 
 - [x] eBay category browsing
 - [x] NLP keyword extraction (spaCy)
+- [x] Semantic filtering with word embeddings
 - [x] Google Trends data fetching
 - [x] Rising keyword detection
 - [x] Discovery pipeline
-- [ ] Data cleaning (Phase 2)
+- [x] Feature engineering (Phase 2)
 - [ ] Opportunity scoring (Phase 3)
 - [ ] Database storage (Phase 4)
 - [ ] Dashboard (Phase 6)
